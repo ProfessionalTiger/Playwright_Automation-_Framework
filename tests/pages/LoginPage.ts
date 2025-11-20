@@ -17,7 +17,7 @@ export class LoginPage extends BasePage {
     await this.page.fill(this.usernameInput, "student");
     await this.page.fill(this.passwordInput, "Password123");
     await this.page.click(this.loginButton);
-    await this.page.waitForURL('**/logged-in-successfully');
+    await this.page.waitForURL('**/practicetestautomation.com/logged-in-successfully/');
   }
 
   async isLoginFormVisible(): Promise<boolean> {

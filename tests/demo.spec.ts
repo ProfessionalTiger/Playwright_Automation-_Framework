@@ -22,8 +22,6 @@ test.describe('LoginPage Tests', () => {
     await page.waitForLoadState('networkidle');
   });
 
-
-
   test('should perform login with valid credentials', async ({ loginPage }) => {
     // Arrange
     const username = 'student';
@@ -35,6 +33,9 @@ test.describe('LoginPage Tests', () => {
     // Assert
     console.log('✅ Login performed with valid credentials');
   });
-
+ test.afterEach(async ({ page }) => {
+    console.log('🧹 Cleaning up after test');
+    // Cleanup after each test
+  });
 });
 
