@@ -33,9 +33,6 @@ test.describe('LoginPage Tests', () => {
     // Assert
     console.log('✅ Login performed with valid credentials');
   });
- test.afterEach(async ({ page }) => {
-    console.log('🧹 Cleaning up after test');
-    // Cleanup after each test
-  });
+
 });
 
