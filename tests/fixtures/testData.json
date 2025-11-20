@@ -1,0 +1,40 @@
+{
+  "searchKeywords": [
+    "JavaScript",
+    "TypeScript",
+    "Playwright",
+    "Automation",
+    "Testing"
+  ],
+  "testUsers": [
+    {
+      "id": 1,
+      "email": "user1@example.com",
+      "password": "password123",
+      "username": "testuser1"
+    },
+    {
+      "id": 2,
+      "email": "user2@example.com",
+      "password": "password456",
+      "username": "testuser2"
+    }
+  ],
+  "testData": {
+    "urls": {
+      "dev": "https://dev.example.com",
+      "staging": "https://staging.example.com",
+      "prod": "https://example.com"
+    },
+    "credentials": {
+      "admin": {
+        "username": "admin",
+        "password": "admin123"
+      },
+      "user": {
+        "username": "user",
+        "password": "user123"
+      }
+    }
+  }
+}

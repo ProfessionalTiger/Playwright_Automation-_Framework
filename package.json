@@ -1,0 +1,31 @@
+{
+  "name": "project_test",
+  "version": "1.0.0",
+  "description": "Playwright Test Automation Framework",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:dev": "cross-env ENV=dev playwright test",
+    "test:staging": "cross-env ENV=staging playwright test",
+    "test:prod": "cross-env ENV=prod playwright test",
+    "report": "playwright show-report"
+  },
+  "keywords": ["playwright", "automation", "testing", "e2e"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0",
+    "@faker-js/faker": "^9.0.0",
+    "dotenv": "^16.4.5",
+    "allure-playwright": "^3.0.2",
+    "cross-env": "^7.0.3"
+  }
+}
