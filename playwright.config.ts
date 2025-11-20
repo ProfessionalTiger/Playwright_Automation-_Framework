@@ -10,7 +10,7 @@ const envFile = process.env.ENV ? `.env.${process.env.ENV}` : '.env';
 dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // Get configuration from environment variables
-const baseURL = process.env.BASE_URL || 'http://localhost:3000';
+const baseURL = process.env.BASE_URL || 'https://practicetestautomation.com/practice-test-';
 const headless = process.env.HEADLESS !== 'false';
 const parallelWorkers = parseInt(process.env.PARALLEL_WORKERS || '4', 10);
 const retries = parseInt(process.env.RETRIES || '0', 10);
@@ -80,21 +80,21 @@ export default defineConfig({
       },
     },
 
-    {
-      name: 'firefox',
-      use: { 
-        ...devices['Desktop Firefox'],
-        headless: headless,
-      },
-    },
+   // {
+     // name: 'firefox',
+      //use: { 
+       // ...devices['Desktop Firefox'],
+        //headless: headless,
+      //},
+    //},
 
-    {
-      name: 'webkit',
-      use: { 
-        ...devices['Desktop Safari'],
-        headless: headless,
-      },
-    },
+    //{
+      //name: 'webkit',
+     // use: { 
+    //    ...devices['Desktop Safari'],
+      //  headless: headless,
+   //   },
+    //},
 
     /* Test against mobile viewports */
     // {

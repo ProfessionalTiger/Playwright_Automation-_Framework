@@ -6,7 +6,6 @@ import { SearchPage } from '../pages/searchPage.js';
  * Custom fixtures interface
  */
 export interface CustomFixtures {
-  homePage: LoginPage;
   loginPage: LoginPage;
   searchPage: SearchPage;
   authenticatedPage: Page;
@@ -17,27 +16,10 @@ export interface CustomFixtures {
  */
 export const test = base.extend<CustomFixtures>({
   /**
-   * Home Page fixture
-   * Provides HomePage instance with automatic initialization
-   */
-  homePage: async ({ page }, use) => {
-    // Setup: Create HomePage instance
-    const homePage = new LoginPage(page);
-    
-    console.log('📄 Home Page fixture initialized');
-    
-    // Use the fixture in the test
-    await use(homePage);
-    
-    // Teardown: Close page if needed
-    console.log('🧹 Home Page fixture cleanup');
-  },
-
-  /**
    * Login Page fixture
    * Provides LoginPage instance with automatic initialization
    */
-  loginPage: async ({ page }, use) => {
+  loginPage: async ({ page }: { page: Page }, use: Function) => {
     // Setup: Create LoginPage instance
     const loginPage = new LoginPage(page);
     
@@ -54,7 +36,7 @@ export const test = base.extend<CustomFixtures>({
    * Search Page fixture
    * Provides SearchPage instance with automatic initialization
    */
-  searchPage: async ({ page }, use) => {
+  searchPage: async ({ page }: { page: Page }, use: Function) => {
     // Setup: Create SearchPage instance
     const searchPage = new SearchPage(page);
     
