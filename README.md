@@ -32,6 +32,7 @@ A comprehensive, production-ready test automation framework built with Playwrigh
 8. **Cross-Browser Testing** - Chromium, Firefox, and WebKit support
 9. **API Testing** - Full API testing capabilities
 10. **Performance Testing** - Web vitals and performance metrics
+11. **Google Lighthouse Integration** - Automated performance, accessibility, SEO audits
 
 ### Bonus Features
 

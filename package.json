@@ -15,6 +15,8 @@
     "test:dev": "cross-env ENV=dev playwright test",
     "test:staging": "cross-env ENV=staging playwright test",
     "test:prod": "cross-env ENV=prod playwright test",
+    "test:lighthouse": "playwright test tests/lighthouse.spec.ts --headed",
+    "test:performance": "playwright test tests/performance.spec.ts",
     "report": "playwright show-report"
   },
   "keywords": ["playwright", "automation", "testing", "e2e"],
@@ -26,6 +28,9 @@
     "@faker-js/faker": "^9.0.0",
     "dotenv": "^16.4.5",
     "allure-playwright": "^3.0.2",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "lighthouse": "^12.0.0",
+    "chrome-launcher": "^1.1.2",
+    "fs-extra": "^11.2.0"
   }
 }
