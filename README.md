@@ -14,7 +14,8 @@ A comprehensive, production-ready test automation framework built with Playwrigh
 - [Utilities and Helpers](#utilities-and-helpers)
 - [Custom Fixtures](#custom-fixtures)
 - [API Testing](#api-testing)
-- [Reporting](#reporting)
+- [Google Lighthouse Integration](#-google-lighthouse-integration)
+- [Reporting](#-reporting)
 - [CI/CD Integration](#cicd-integration)
 - [Best Practices](#best-practices)
 
@@ -211,6 +212,36 @@ npx playwright test tests/example.spec.ts
 
 # Run tests matching pattern
 npx playwright test tests/example.spec.ts -g "should display"
+```
+
+### Google Lighthouse Performance Tests
+
+The framework includes integrated Google Lighthouse audits for comprehensive performance testing:
+
+```bash
+# Run all Lighthouse tests
+npm run test:lighthouse
+
+# Run specific Lighthouse test
+npx playwright test tests/lighthouse.spec.ts --grep "performance"
+
+# Run Lighthouse tests in debug mode
+npx playwright test tests/lighthouse.spec.ts --debug
+
+# Run with single worker (recommended for Lighthouse)
+npx playwright test tests/lighthouse.spec.ts --workers 1
+```
+
+**What Lighthouse Tests:**
+- ⚡ **Performance** - Load speed and responsiveness (0-100)
+- ♿ **Accessibility** - WCAG compliance and usability (0-100)
+- ✅ **Best Practices** - Security and standards compliance (0-100)
+- 🔍 **SEO** - Search engine optimization (0-100)
+- 📊 **Core Web Vitals** - FCP, LCP, CLS, TTFB metrics
+
+**Reports Location:**
+```
+test-results/lighthouse-reports/lighthouse-TIMESTAMP.json
 ```
 
 ## 📄 Page Object Model
@@ -519,6 +550,120 @@ reporter: [
   ['list'],
 ]
 ```
+
+## 🚀 Google Lighthouse Integration
+
+### What is Lighthouse?
+
+Google Lighthouse is an automated auditing tool that analyzes web app quality. It provides audits for performance, accessibility, best practices, SEO, and PWA.
+
+### Running Lighthouse Audits
+
+```bash
+# Run all Lighthouse performance tests
+npm run test:lighthouse
+
+# Run specific audit test
+npx playwright test tests/lighthouse.spec.ts --grep "accessibility"
+
+# Run with single worker (recommended)
+npx playwright test tests/lighthouse.spec.ts --workers 1
+
+# Run in debug mode
+npx playwright test tests/lighthouse.spec.ts --debug
+```
+
+### Key Metrics Tested
+
+**Performance Scores (0-100)**
+- **Performance** - Page load speed and responsiveness
+- **Accessibility** - WCAG compliance and usability for all users
+- **Best Practices** - Security, performance standards, and web APIs
+- **SEO** - Search engine optimization best practices
+
+**Core Web Vitals**
+- **FCP** (First Contentful Paint) - Time to first content render (< 1.8s is good)
+- **LCP** (Largest Contentful Paint) - Time to largest element visible (< 2.5s is good)
+- **CLS** (Cumulative Layout Shift) - Visual stability (< 0.1 is good)
+- **TTFB** (Time to First Byte) - Server response time (< 600ms is good)
+
+### Lighthouse Test Suite
+
+The framework includes 14+ pre-built Lighthouse tests in 2 suites:
+
+**Suite 1: Performance Audits** (9 tests)
+```typescript
+test('should pass Lighthouse performance audit')
+test('should meet accessibility standards')
+test('should follow best practices')
+test('should have good SEO score')
+test('should meet Core Web Vitals thresholds')
+test('should have fast First Contentful Paint')
+test('should have fast Largest Contentful Paint')
+test('should have low Cumulative Layout Shift')
+test('should have fast Time to First Byte')
+```
+
+**Suite 2: Custom Audits** (5 tests)
+```typescript
+test('should pass with custom performance thresholds')
+test('should pass with custom metrics thresholds')
+test('should report on performance categories')
+test('should track performance over time')
+test('should identify performance bottlenecks')
+```
+
+### Using Lighthouse Helper
+
+The `LighthouseHelper` class provides an easy-to-use API:
+
+```typescript
+import { lighthouseHelper } from './utils/lighthouseHelper.js';
+
+// Run full audit
+const report = await lighthouseHelper.generateReport('https://example.com');
+
+// Check performance score
+expect(report.scores.performance).toBeGreaterThanOrEqual(80);
+
+// Check Core Web Vitals
+expect(report.metrics.fcp).toBeLessThan(1800);
+expect(report.metrics.lcp).toBeLessThan(2500);
+
+// Validate with custom thresholds
+const result = lighthouseHelper.assertScoresAboveThreshold(
+  report.scores,
+  { performance: 80, accessibility: 90 }
+);
+
+// Save report
+await lighthouseHelper.saveReport(report, 'audit-report.json');
+
+// Print summary
+lighthouseHelper.printReportSummary(report);
+```
+
+### Report Storage
+
+Lighthouse reports are automatically saved to:
+```
+test-results/lighthouse-reports/lighthouse-TIMESTAMP.json
+```
+
+Each report contains:
+- URL audited
+- Timestamp of audit
+- Performance scores (0-100)
+- Core Web Vitals metrics
+- Complete Lighthouse audit data
+
+### Lighthouse Documentation
+
+For complete Lighthouse documentation and examples:
+- **Quick Start**: See `LIGHTHOUSE_QUICKSTART.md`
+- **Full Guide**: See `LIGHTHOUSE_SETUP.md`
+- **Index & Navigation**: See `LIGHTHOUSE_INDEX.md`
+- **Integration Summary**: See `LIGHTHOUSE_INTEGRATION_SUMMARY.md`
 
 ## 🔄 CI/CD Integration
 
