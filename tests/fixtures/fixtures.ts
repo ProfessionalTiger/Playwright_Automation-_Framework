@@ -1,12 +1,13 @@
 import { test as base, expect, Page } from '@playwright/test';
-import { HomePage } from '../pages/homePage.js';
+import { LoginPage } from '../pages/LoginPage.js';
 import { SearchPage } from '../pages/searchPage.js';
 
 /**
  * Custom fixtures interface
  */
 export interface CustomFixtures {
-  homePage: HomePage;
+  homePage: LoginPage;
+  loginPage: LoginPage;
   searchPage: SearchPage;
   authenticatedPage: Page;
 }
@@ -21,7 +22,7 @@ export const test = base.extend<CustomFixtures>({
    */
   homePage: async ({ page }, use) => {
     // Setup: Create HomePage instance
-    const homePage = new HomePage(page);
+    const homePage = new LoginPage(page);
     
     console.log('📄 Home Page fixture initialized');
     
@@ -30,6 +31,23 @@ export const test = base.extend<CustomFixtures>({
     
     // Teardown: Close page if needed
     console.log('🧹 Home Page fixture cleanup');
+  },
+
+  /**
+   * Login Page fixture
+   * Provides LoginPage instance with automatic initialization
+   */
+  loginPage: async ({ page }, use) => {
+    // Setup: Create LoginPage instance
+    const loginPage = new LoginPage(page);
+    
+    console.log('🔐 Login Page fixture initialized');
+    
+    // Use the fixture in the test
+    await use(loginPage);
+    
+    // Teardown: Cleanup
+    console.log('🧹 Login Page fixture cleanup');
   },
 
   /**

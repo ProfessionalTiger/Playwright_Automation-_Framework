@@ -19,18 +19,24 @@
     "test:performance": "playwright test tests/performance.spec.ts",
     "report": "playwright show-report"
   },
-  "keywords": ["playwright", "automation", "testing", "e2e"],
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@types/node": "^24.10.0",
     "@faker-js/faker": "^9.0.0",
-    "dotenv": "^16.4.5",
+    "@playwright/test": "^1.56.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^24.10.0",
     "allure-playwright": "^3.0.2",
-    "cross-env": "^7.0.3",
-    "lighthouse": "^12.0.0",
     "chrome-launcher": "^1.1.2",
-    "fs-extra": "^11.2.0"
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "lighthouse": "^12.0.0"
   }
 }

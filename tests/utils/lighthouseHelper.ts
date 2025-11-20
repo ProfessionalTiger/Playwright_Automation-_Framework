@@ -1,6 +1,6 @@
 import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import path from 'path';
 
 /**

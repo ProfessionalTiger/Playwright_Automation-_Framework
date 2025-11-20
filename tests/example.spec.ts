@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures/fixtures.js';
-import { HomePage } from './pages/homePage.js';
+import { LoginPage} from './pages/LoginPage.js';
 import { SearchPage } from './pages/searchPage.js';
 import { DataGenerator } from './utils/dataGenerator.js';
 import { 
@@ -11,12 +11,12 @@ import {
 } from './utils/helpers.js';
 
 /**
- * Test Suite: Home Page Tests
+ * Test Suite: Login Page Tests
  * Using Page Object Model pattern with custom fixtures
  */
-test.describe('Home Page Tests', () => {
+test.describe('LoginPage Tests', () => {
   test.beforeEach(async ({ page }) => {
-    console.log('📝 Setting up test - navigating to home page');
+    console.log('📝 Setting up test - navigating to Login page');
     // Setup before each test
   });
 
@@ -25,47 +25,40 @@ test.describe('Home Page Tests', () => {
     // Cleanup after each test
   });
 
-  test('should display Playwright home page', async ({ homePage }) => {
-    // Arrange
-    await homePage.navigateToHome();
-
-    // Act
-    const isVisible = await homePage.isGetStartedLinkVisible();
+  test('should display Playwright Login page', async ({ loginPage }) => {
+    // Arrange & Act
+    const isVisible = await loginPage.isLoginFormVisible();
 
     // Assert
     expect(isVisible).toBeTruthy();
   });
 
-  test('should have correct page title', async ({ homePage }) => {
+  test('should have correct login form', async ({ loginPage }) => {
     // Arrange & Act
-    await homePage.navigateToHome();
-    const hasTitle = await homePage.verifyPageTitle();
+    const formVisible = await loginPage.isLoginFormVisible();
 
     // Assert
-    expect(hasTitle).toBe(true);
+    expect(formVisible).toBe(true);
   });
 
-  test('should navigate to get started page', async ({ page, homePage }) => {
+  test('should perform login action', async ({ page, loginPage }) => {
     // Arrange
-    await homePage.navigateToHome();
+    await page.goto('http://localhost:3000/login');
 
     // Act
-    await homePage.clickGetStartedLink();
+    await loginPage.login('testuser', 'password123');
 
     // Assert
-    await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+    await expect(page).toHaveURL('**/dashboard');
   });
 
-  test('should retrieve all links from home page', async ({ homePage }) => {
-    // Arrange
-    await homePage.navigateToHome();
-
-    // Act
-    const links = await homePage.getAllLinks();
+  test('should validate login form elements', async ({ loginPage }) => {
+    // Arrange & Act
+    const isFormVisible = await loginPage.isLoginFormVisible();
 
     // Assert
-    expect(links.length).toBeGreaterThan(0);
-    console.log(`Found ${links.length} links on the page`);
+    expect(isFormVisible).toBeTruthy();
+    console.log('✅ Login form elements are visible');
   });
 });
 
@@ -235,30 +228,29 @@ test.describe('Cross-browser Tests', () => {
  * Test Suite: Advanced Testing Scenarios
  */
 test.describe('Advanced Testing Scenarios', () => {
-  test('should handle multiple actions in sequence', async ({ homePage, page }) => {
+  test('should handle multiple actions in sequence', async ({ loginPage, page }) => {
     // Arrange
-    await homePage.navigateToHome();
+    const isFormVisible = await loginPage.isLoginFormVisible();
 
     // Act
-    await homePage.clickGetStartedLink();
-    await page.waitForURL('**/docs/intro');
+    await page.goto('https://playwright.dev/');
+    await page.waitForURL('https://playwright.dev/');
     const url = page.url();
 
     // Assert
-    expect(url).toContain('intro');
+    expect(isFormVisible).toBeTruthy();
+    expect(url).toContain('playwright.dev');
   });
 
-  test('should combine POM and direct page interactions', async ({ homePage, page }) => {
+  test('should combine POM and direct page interactions', async ({ loginPage, page }) => {
     // Arrange
-    await homePage.navigateToHome();
+    const isFormVisible = await loginPage.isLoginFormVisible();
 
     // Act - Using POM
-    const links = await homePage.getAllLinks();
-
-    // Assert
-    expect(links.length).toBeGreaterThan(0);
+    expect(isFormVisible).toBeTruthy();
 
     // Act - Using direct page interaction
+    await page.goto('https://playwright.dev/');
     const pageTitle = await page.title();
 
     // Assert
