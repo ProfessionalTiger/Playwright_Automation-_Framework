@@ -29,8 +29,12 @@ test.describe('LoginPage Tests', () => {
 
   test('should perform login with valid credentials', async ({ loginPage }) => {
     // Arrange
-    const username = 'aamirs';
-    const password = '123';
+    const username = process.env.TEST_USERNAME;
+    const password = process.env.TEST_PASSWORD;
+
+    if (!username || !password) {
+      throw new Error('TEST_USERNAME and TEST_PASSWORD must be set in .env file');
+    }
 
     // Act
     await loginPage.login(username, password);

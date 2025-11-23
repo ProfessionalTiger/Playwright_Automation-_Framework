@@ -1,5 +1,9 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './basePage.ts';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 /**
  * Login Page Object Model
@@ -15,8 +19,8 @@ export class LoginPage extends BasePage {
   }
 
   async login(username: string, password: string): Promise<void> {
-    await this.page.fill(this.usernameInput, "aamirs");
-    await this.page.fill(this.passwordInput, "123");
+    await this.page.fill(this.usernameInput, username);
+    await this.page.fill(this.passwordInput, password);
     await this.page.click(this.loginButton);
     await this.page.waitForURL('**/dashboard');
     await this.page.waitForLoadState('networkidle');

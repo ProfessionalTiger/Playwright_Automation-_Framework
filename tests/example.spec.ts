@@ -9,6 +9,10 @@ import {
   generateRandomString,
   capitalizeString
 } from './utils/helpers.js';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 /**
  * Test Suite: Login Page Tests
@@ -43,10 +47,17 @@ test.describe('LoginPage Tests', () => {
 
   test('should perform login action', async ({ page, loginPage }) => {
     // Arrange
+    const username = process.env.TEST_USERNAME;
+    const password = process.env.TEST_PASSWORD;
+    
+    if (!username || !password) {
+      throw new Error('TEST_USERNAME and TEST_PASSWORD must be set in .env file');
+    }
+    
     await page.goto('http://localhost:3000/login');
 
     // Act
-    await loginPage.login('testuser', 'password123');
+    await loginPage.login(username, password);
 
     // Assert
     await expect(page).toHaveURL('**/dashboard');
