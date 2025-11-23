@@ -76,8 +76,15 @@ export const test = base.extend<CustomFixtures>({
     await page.goto(loginUrl);
     
     // Perform login
-    await page.fill('[id="_58_login"]', process.env.TEST_USERNAME || 'autodev');
-    await page.fill('[id="_58_password"]', process.env.TEST_PASSWORD || '123');
+    const username = process.env.TEST_USERNAME;
+    const password = process.env.TEST_PASSWORD;
+    
+    if (!username || !password) {
+      throw new Error('TEST_USERNAME and TEST_PASSWORD environment variables must be set in .env file.');
+    }
+    
+    await page.fill('[id="_58_login"]', username);
+    await page.fill('[id="_58_password"]', password);
     await page.click('button[type="submit"]');
     await page.waitForLoadState('networkidle');
 
