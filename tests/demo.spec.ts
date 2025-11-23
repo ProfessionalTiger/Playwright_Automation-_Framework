@@ -1,6 +1,6 @@
-import { test, expect } from './fixtures/fixtures.js';
-import { LoginPage} from './pages/LoginPage.js';
-//import { SearchPage } from './pages/searchPage.js';
+import { test, expect } from './fixtures/fixtures.ts';
+import { LoginPage } from './pages/LoginPage.ts';
+//import { SearchPage } from './pages/searchPage.ts';
 import { DataGenerator } from './utils/dataGenerator.js';
 import { 
   getTodayDate, 
@@ -8,7 +8,11 @@ import {
   delay, 
   generateRandomString,
   capitalizeString
-} from './utils/helpers.js';
+} from './utils/helpers.ts';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 /**
  * Test Suite: Login Page Tests
@@ -18,14 +22,15 @@ test.describe('LoginPage Tests', () => {
   test.beforeEach(async ({ page }) => {
     console.log('📝 Setting up test - navigating to Login page');
     // Navigate to login page before each test
-    await page.goto('https://practicetestautomation.com/practice-test-login/');
+    const baseUrl = process.env.BASE_URL || '/web/tango';
+    await page.goto(baseUrl);
     await page.waitForLoadState('networkidle');
   });
 
   test('should perform login with valid credentials', async ({ loginPage }) => {
     // Arrange
-    const username = 'student';
-    const password = 'Password123';
+    const username = 'aamirs';
+    const password = '123';
 
     // Act
     await loginPage.login(username, password);

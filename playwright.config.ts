@@ -38,6 +38,9 @@ export default defineConfig({
   /* Parallel workers configuration */
   workers: process.env.CI ? 1 : parallelWorkers,
   
+  /* Global teardown for preserving Lighthouse reports */
+  globalTeardown: path.resolve('./tests/globalTeardown.ts'),
+  
   /* Reporter configuration with multiple reporters */
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],

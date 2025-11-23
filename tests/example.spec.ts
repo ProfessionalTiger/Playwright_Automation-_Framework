@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures/fixtures.js';
 import { LoginPage} from './pages/LoginPage.js';
-import { SearchPage } from './pages/searchPage.js';
+import { SearchPage } from './pages/StrategyPage.js';
 import { DataGenerator } from './utils/dataGenerator.js';
 import { 
   getTodayDate, 

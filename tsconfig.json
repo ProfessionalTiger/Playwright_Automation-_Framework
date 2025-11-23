@@ -7,6 +7,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -22,6 +24,6 @@
     },
     "types": ["@playwright/test", "node"]
   },
-  "include": ["tests/**/*.ts", "playwright.config.ts"],
+  "include": ["tests/**/*.ts", "playwright.config.ts", "tests/utils/dataGenerator.js", "tests/pages/LoginPage.js", "tests/pages/basePage.js", "tests/fixtures/globalSetup.ts"],
   "exclude": ["node_modules", "dist"]
 }
