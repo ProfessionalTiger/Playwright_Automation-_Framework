@@ -56,24 +56,24 @@ export const test = base.extend<CustomFixtures>({
   /**
    * Authenticated Page fixture
    * Provides a page instance with pre-authenticated session
-   * Uses LOGIN_URL for authentication from npm scripts
+   * Uses BASE_URL from .env file with /web/tango appended for login
    */
   authenticatedPage: async ({ page }, use) => {
     // Setup: Navigate and perform login
     console.log('🔐 Setting up authenticated session');
     
-    // Use LOGIN_URL from environment variables (set by npm scripts via cross-env)
-    // URL must be defined via npm script for security
-    const loginUrl = process.env.LOGIN_URL;
+    // Use BASE_URL from .env and append /web/tango for login page
+    const baseUrl = process.env.BASE_URL;
     
-    if (!loginUrl) {
-      throw new Error('LOGIN_URL environment variable is not set. Please check your npm script configuration.');
+    if (!baseUrl) {
+      throw new Error('BASE_URL environment variable is not set in .env file.');
     }
     
-    console.log('📍 Using login URL from npm script (LOGIN_URL)');
+    const loginUrl = `${baseUrl}/web/tango`;
+    console.log('📍 Using login URL from BASE_URL (.env)');
     
-    // Navigate to login page
-    await page.goto(loginUrl);
+    // Navigate to login page with timeout
+    await page.goto(loginUrl, { waitUntil: 'load', timeout: 20000 });
     
     // Perform login
     const username = process.env.TEST_USERNAME;
@@ -83,10 +83,13 @@ export const test = base.extend<CustomFixtures>({
       throw new Error('TEST_USERNAME and TEST_PASSWORD environment variables must be set in .env file.');
     }
     
-    await page.fill('[id="_58_login"]', username);
-    await page.fill('[id="_58_password"]', password);
-    await page.click('button[type="submit"]');
-    await page.waitForLoadState('networkidle');
+    await page.fill('[id="_58_login"]', username, { timeout: 5000 });
+    await page.fill('[id="_58_password"]', password, { timeout: 5000 });
+    await page.click('button[type="submit"]', { timeout: 5000 });
+    
+    // Wait for dashboard to load (post-login navigation)
+    await page.waitForURL('**/dashboard', { timeout: 15000 });
+    await page.waitForLoadState('load');
 
     console.log('✅ Authentication setup complete');
     

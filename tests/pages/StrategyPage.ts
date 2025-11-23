@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { BasePage } from './basePage.js';
+import { BasePage } from './basePage.ts';
 
 /**
  * Search Page Object Model
@@ -30,7 +30,7 @@ export class SearchPage extends BasePage {
     await this.page.fill(this.searchInputSelector, keyword);
     await this.page.click(this.searchButtonSelector);
     // Wait for results to load
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('load');
   }
 
   /**

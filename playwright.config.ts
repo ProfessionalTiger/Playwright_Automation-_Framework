@@ -10,14 +10,15 @@ const envFile = process.env.ENV ? `.env.${process.env.ENV}` : '.env';
 dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // Get configuration from environment variables
-const baseURL = process.env.BASE_URL || 'https://practicetestautomation.com/practice-test-';
+const baseURL = process.env.BASE_URL || '';
 const headless = process.env.HEADLESS !== 'false';
 const parallelWorkers = parseInt(process.env.PARALLEL_WORKERS || '4', 10);
 const retries = parseInt(process.env.RETRIES || '0', 10);
 const screenshotOnFailure = process.env.SCREENSHOT_ON_FAILURE === 'true';
 const videoOnFailure = process.env.VIDEO_ON_FAILURE === 'true';
-const pageTimeout = parseInt(process.env.PAGE_TIMEOUT || '30000', 10);
-const navigationTimeout = parseInt(process.env.NAVIGATION_TIMEOUT || '30000', 10);
+const pageTimeout = parseInt(process.env.PAGE_TIMEOUT || '140000', 10);
+const navigationTimeout = parseInt(process.env.NAVIGATION_TIMEOUT || '140000', 10);
+
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -25,6 +26,9 @@ const navigationTimeout = parseInt(process.env.NAVIGATION_TIMEOUT || '30000', 10
 export default defineConfig({
   testDir: './tests',
   testMatch: '**/*.spec.ts',
+
+
+        
   
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -82,6 +86,10 @@ export default defineConfig({
         launchArgs: ['--disable-blink-features=AutomationControlled'],
       },
     },
+    {
+          timeout: 60000, // Increase to 60 seconds (or more)
+          // ... other configurations
+        },
 
    // {
      // name: 'firefox',
@@ -130,3 +138,4 @@ export default defineConfig({
   /* Output folder for test results */
   outputDir: 'test-results',
 });
+

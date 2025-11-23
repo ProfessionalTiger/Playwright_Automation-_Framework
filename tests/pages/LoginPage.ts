@@ -23,7 +23,8 @@ export class LoginPage extends BasePage {
     await this.page.fill(this.passwordInput, password);
     await this.page.click(this.loginButton);
     await this.page.waitForURL('**/dashboard');
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('load');
+    await this.page.waitForTimeout(3000);
     await this.page.click(this.workspacesetting);
     await this.page.click(this.workspace);
   }
