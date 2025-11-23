@@ -4,10 +4,10 @@ test('test', async ({ page }) => {
   await page.goto('https://deltadefenders-qa.elixirlab.net/web/tango');
   await page.getByRole('textbox', { name: 'Login' }).click();
   await page.getByRole('textbox', { name: 'Login' }).click();
-  await page.getByRole('textbox', { name: 'Login' }).fill('aamir');
+  await page.getByRole('textbox', { name: 'Login' }).fill('');
   await page.getByRole('textbox', { name: 'Login' }).press('Tab');
   await page.getByRole('textbox', { name: 'Password' }).click();
-  await page.getByRole('textbox', { name: 'Password' }).fill('111');
+  await page.getByRole('textbox', { name: 'Password' }).fill('');
   await page.getByRole('button', { name: 'Log In' }).click();
   await page.waitForTimeout(5000);
   //await page.goto('https://trunk-qa.elixirlab.net/elixir/default/dashboard');
